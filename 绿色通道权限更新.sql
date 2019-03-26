@@ -1,5 +1,10 @@
 --该sql用于更新用户的绿色通道权限,名单由医院人员提供
 
+--角色中含有绿色通道功能
+SELECT role.PK_ROLE,NAME_ROLE from BD_OU_ROLE_OPER oper
+  INNER JOIN (SELECT * from BD_OU_MENU where NAME_MENU like '%绿色通道%') menu on menu.PK_MENU = oper.PK_MENU
+  INNER JOIN BD_OU_ROLE role on role.PK_ROLE = oper.PK_ROLE;
+
 INSERT INTO BD_OU_USER_ROLE
 SELECT
   replace(sys_guid(), '-', '') PK_USERROLE,
